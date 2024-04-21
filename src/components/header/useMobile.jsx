@@ -1,31 +1,47 @@
 import React from "react";
-/*   const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };  */
-const useMobile = () => {
-  //state,setState,()=> update
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-    console.log("handleMobileMenuOpen",event);
-  };
+const mobileMenuId = 'primary-search-account-menu-mobile';
+const menuId = 'primary-search-account-menu';
+
+const useMobile = () => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
-    console.log('handleProfileMenuOpen');
   };
+
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  };
+
+  const handleMobileMenuOpen = (event) => {
+    console.log("Event", event);
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const  isMenuOpen = Boolean(anchorEl);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
   return {
-    mobileMoreAnchorEl,
-    setMobileMoreAnchorEl,
-    handleMobileMenuOpen,
-    anchorEl,
-    setAnchorEl,
-    handleProfileMenuOpen,
-    isMenuOpen,
-    isMobileMenuOpen
+   menuId,
+   mobileMenuId,
+   anchorEl,
+   setAnchorEl,
+   mobileMoreAnchorEl,
+   setMobileMoreAnchorEl,
+   isMenuOpen,
+   isMobileMenuOpen,
+   handleProfileMenuOpen,
+   handleMobileMenuClose,
+   handleMenuClose,
+   handleMobileMenuOpen
+
   };
 };
 
