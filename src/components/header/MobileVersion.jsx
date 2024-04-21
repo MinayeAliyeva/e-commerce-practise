@@ -3,42 +3,31 @@ import { AccountCircle } from "@mui/icons-material";
 import { Badge, IconButton, Menu, MenuItem } from "@mui/material";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import useMobile from "./useMobile";
-const MobileVersion = ({ mobileMenuId, menuId, cb }) => {
-  const {
-    mobileMoreAnchorEl,
-    setMobileMoreAnchorEl,
-    anchorEl,
-    setAnchorEl,
-    isMobileMenuOpen,
-    isMenuOpen,
-  } = useMobile();
 
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
+const MobileVersion = React.memo(({
+  isMenuOpen, 
+  handleMenuClose,  
+  anchorEl, 
+  menuId,
+  mobileMenuId,
+  mobileMoreAnchorEl,
+  isMobileMenuOpen,
+  handleMobileMenuClose,
+  handleProfileMenuOpen
+ }) => {
 
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
+        vertical: 'top',
+        horizontal: 'right',
       }}
       id={menuId}
       keepMounted
       transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
+        vertical: 'top',
+        horizontal: 'right',
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
@@ -47,18 +36,19 @@ const MobileVersion = ({ mobileMenuId, menuId, cb }) => {
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
+
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
+        vertical: 'top',
+        horizontal: 'right',
       }}
       id={mobileMenuId}
       keepMounted
       transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
+        vertical: 'top',
+        horizontal: 'right',
       }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
@@ -71,6 +61,7 @@ const MobileVersion = ({ mobileMenuId, menuId, cb }) => {
         </IconButton>
         <p>Messages</p>
       </MenuItem>
+
       <MenuItem>
         <IconButton
           size="large"
@@ -81,7 +72,7 @@ const MobileVersion = ({ mobileMenuId, menuId, cb }) => {
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <p>Notifications</p>
+        <p>Notifications mino</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -93,16 +84,18 @@ const MobileVersion = ({ mobileMenuId, menuId, cb }) => {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p>Profile User</p>
       </MenuItem>
     </Menu>
   );
+
   return (
     <>
       {renderMobileMenu}
       {renderMenu}
     </>
   );
-};
+
+});
 
 export default MobileVersion;
