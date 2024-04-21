@@ -3,11 +3,16 @@ import { AccountCircle } from "@mui/icons-material";
 import { Badge, IconButton, Menu, MenuItem } from "@mui/material";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-const MobileVersion = ({ mobileMenuId, menuId }) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+import useMobile from "./useMobile";
+const MobileVersion = ({ mobileMenuId, menuId, cb }) => {
+  const {
+    mobileMoreAnchorEl,
+    setMobileMoreAnchorEl,
+    anchorEl,
+    setAnchorEl,
+    isMobileMenuOpen,
+    isMenuOpen,
+  } = useMobile();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -22,15 +27,6 @@ const MobileVersion = ({ mobileMenuId, menuId }) => {
     handleMobileMenuClose();
   };
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-  const handleMobileMenu = () => {
-    return {
-      isMenuOpen,
-      isMobileMenuOpen,
-    };
-  };
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}

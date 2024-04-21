@@ -14,17 +14,21 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { useState } from "react";
 import { Search, StyledInputBase, SearchIconWrapper } from "./StyledComponent";
 import MobileVersion from "./MobileVersion";
+import useMobile from "./useMobile";
 export default function Header() {
+  const { handleMobileMenuOpen, handleProfileMenuOpen } = useMobile();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const menuId = 'primary-search-account-menu';
-  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const menuId = "primary-search-account-menu";
+  const mobileMenuId = "primary-search-account-menu-mobile";
   const handleMobileMenu = () => {
     return {
       isMenuOpen,
       isMobileMenuOpen,
     };
   };
+  
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -81,7 +85,7 @@ export default function Header() {
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
-              // onClick={handleProfileMenuOpen}
+              onClick={handleProfileMenuOpen}
               color="inherit"
             >
               <AccountCircle />
@@ -93,7 +97,8 @@ export default function Header() {
               aria-label="show more"
               aria-controls={mobileMenuId}
               aria-haspopup="true"
-              // onClick={handleMobileMenuOpen}
+              //
+              onClick={handleMobileMenuOpen}
               color="inherit"
             >
               <MoreIcon />
@@ -101,7 +106,7 @@ export default function Header() {
           </Box>
         </Toolbar>
       </AppBar>
-      <MobileVersion mobileMenuId={mobileMenuId} menuId={menuId}  handleMobileMenu={handleMobileMenu} />
+      <MobileVersion mobileMenuId={mobileMenuId} menuId={menuId} />
     </Box>
   );
 }
