@@ -6,7 +6,9 @@ const MainLayout = () => {
   return (
     <div>
       <Header />
-      <Outlet />
+      <div style={{ height: "70vh", backgroundColor: "red" }}>
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );
