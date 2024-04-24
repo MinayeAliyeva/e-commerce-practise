@@ -6,7 +6,7 @@ const MainLayout = () => {
   return (
     <div>
       <Header />
-      <div style={{ height: "70vh", backgroundColor: "red" }}>
+      <div style={{ height: "70vh" }}>
         <Outlet />
       </div>
       <Footer />

@@ -2,7 +2,10 @@
 
 import { useRoutes } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
-import Home from "../pages/Home";
+import Home from "../pages/home";
+import About from "../pages/about";
+import Shop from "../pages/shop";
+import Gallery from "../pages/gallery";
 
 export const routes = [
   {
@@ -13,15 +16,18 @@ export const routes = [
         index: true,
         element: <Home />,
       },
-      // {
-      //   path: "/about",
-      //   element: <About />,
-      // },
-      // {
-      //   path: "/profile",
-      //   auth: true,
-      //   element: <MyProfile />,
-      // },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/shop",
+        element: <Shop />,
+      },
+      {
+        path: "gallery",
+        element: <Gallery />,
+      },
     ],
   },
 ];
