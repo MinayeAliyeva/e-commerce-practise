@@ -16,7 +16,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { Search, SearchIconWrapper, StyledInputBase } from "./StyledComponent";
 import useMobile from "./useMobile";
 import MobileVersion from "./MobileVersion";
-import { NavLink } from "react-router-dom";
+import MenuBar from "./MenuBar";
 
 export default function PrimarySearchAppBar() {
   const state = useMobile();
@@ -46,17 +46,9 @@ export default function PrimarySearchAppBar() {
           >
             Flows
           </Typography>
-
+        
           <Box sx={{ flexGrow: 1 }} />
-          <div
-            className="links"
-            style={{ display: "flex", columnGap: "20px", width: "30%" }}
-          >
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/about">About</NavLink>
-            <NavLink to="/shop">Shop</NavLink>
-            <NavLink to="/gallery">Gallery</NavLink>
-          </div>
+
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <Search>
               <SearchIconWrapper>
@@ -67,6 +59,7 @@ export default function PrimarySearchAppBar() {
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
+            <MenuBar />
             <IconButton
               size="large"
               aria-label="show 4 new mails"
