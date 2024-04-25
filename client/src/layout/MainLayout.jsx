@@ -2,15 +2,19 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
+import Container from "./Container";
 const MainLayout = () => {
   return (
-    <div>
+    <>
       <Header />
-      <div style={{ height: "70vh" }}>
+
+      <Container>
+        {" "}
         <Outlet />
-      </div>
+      </Container>
+
       <Footer />
-    </div>
+    </>
   );
 };
 
