@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const links = [
+export const links = [
   {
     name: "Home",
     to: "/",

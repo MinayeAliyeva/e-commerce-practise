@@ -12,7 +12,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import useMobile from "./useMobile";
 import MobileVersion from "./MobileVersion";
 import MenuBar from "./MenuBar";
-import SideBar from "../test/SideBar";
+import SideBar from "./SideBar";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 import { useState } from "react";
 
