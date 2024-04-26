@@ -1,12 +1,7 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
 
-const Container = () => {
-  return (
-    <div class="  container mx-auto ">
-      <Outlet />
-    </div>
-  );
+const Container = ({ children }) => {
+  return <div className="container mx-auto ">{children}</div>;
 };
 
 export default Container;

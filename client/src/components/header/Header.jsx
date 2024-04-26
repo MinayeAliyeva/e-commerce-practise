@@ -36,7 +36,6 @@ export default function PrimarySearchAppBar() {
   } = React.useMemo(() => state);
 
   return (
-   
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
@@ -101,16 +100,14 @@ export default function PrimarySearchAppBar() {
           </Box>
 
           <IconButton
+            onClick={toggleDrawer(true)}
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <MenuIcon
-              onClick={toggleDrawer(true)}
-              sx={{ display: { xs: "flex", md: "none" } }}
-            />
+            <MenuIcon sx={{ display: { xs: "flex", md: "none" } }} />
           </IconButton>
         </Toolbar>
       </AppBar>

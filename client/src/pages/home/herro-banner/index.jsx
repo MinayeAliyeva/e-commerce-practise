@@ -2,7 +2,11 @@ import React from 'react'
 
 const SendFlowersSection = () => {
   return (
-    <section>SendFlowersSection</section>
+    <section>
+
+
+      
+    </section>
   )
 }
 
