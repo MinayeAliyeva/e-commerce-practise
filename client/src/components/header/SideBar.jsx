@@ -8,7 +8,11 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 import { Drawer } from "@mui/material";
+import { NavLink } from "react-router-dom";
+import { links } from "./MenuBar";
 const SideBar = ({ toggleDrawer, open }) => {
   return (
     <Drawer open={open} onClose={toggleDrawer(false)}>
@@ -18,24 +22,28 @@ const SideBar = ({ toggleDrawer, open }) => {
         onClick={toggleDrawer(false)}
       >
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding>
+          {links?.map((link, index) => (
+            <ListItem key={link.name} disablePadding>
               <ListItemButton>
-                <ListItemIcon>
+                {/* <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
+                </ListItemIcon> */}
+                <NavLink to={link.to}>{link.name}</NavLink>
               </ListItemButton>
             </ListItem>
           ))}
         </List>
         <Divider />
         <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
+          {["All Notifications", "Mail Box"].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {index % 2 === 0 ? (
+                    <NotificationsIcon />
+                  ) : (
+                    <MailIcon />
+                  )}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>

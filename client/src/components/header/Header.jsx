@@ -12,8 +12,8 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import useMobile from "./useMobile";
 import MobileVersion from "./MobileVersion";
 import MenuBar from "./MenuBar";
-import SearchButton from "../Buttons/Search";
-import SideBar from "../test/SideBar";
+import SideBar from "./SideBar";
+import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 import { useState } from "react";
 
 export default function PrimarySearchAppBar() {
@@ -36,6 +36,7 @@ export default function PrimarySearchAppBar() {
   } = React.useMemo(() => state);
 
   return (
+   
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
@@ -60,10 +61,11 @@ export default function PrimarySearchAppBar() {
               aria-label="show 4 new mails"
               color="inherit"
             >
-              {/* <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge> */}
+              <Badge badgeContent={4} color="error">
+                <ShoppingBasketOutlinedIcon />
+              </Badge>
             </IconButton>
+
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
@@ -106,7 +108,7 @@ export default function PrimarySearchAppBar() {
             sx={{ mr: 2 }}
           >
             <MenuIcon
-              onClick={() => setOpen(!open)}
+              onClick={toggleDrawer(true)}
               sx={{ display: { xs: "flex", md: "none" } }}
             />
           </IconButton>
