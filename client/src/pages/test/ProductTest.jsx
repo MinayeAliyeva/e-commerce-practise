@@ -10,9 +10,11 @@ const ProductTest = () => {
   const [produvtDetail, setProductDetail] = useState({firstly: true});
 
   useEffect(() => {
-    axios
+     delay(2000).then(()=>{
+      axios
       .get("http://localhost:8080/products")
       .then((response) => setData(response?.data));
+     })
   }, []);
 
   const wievDetail = (productId) => {
