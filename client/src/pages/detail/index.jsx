@@ -12,7 +12,7 @@ const Detail = () => {
   const [detail, setDetail] = useState({});
   const { id } = useParams();
   useEffect(() => {
-    delay(100000).then(() => {
+    delay(2000).then(() => {
       axios.get(`http://localhost:8080/products/${id}`).then((response) => {
         setDetail(response.data);
       });

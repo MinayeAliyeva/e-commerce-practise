@@ -7,10 +7,11 @@ import About from "../pages/about";
 import Shop from "../pages/shop";
 import Gallery from "../pages/gallery";
 import Detail from "../pages/detail";
+import ProductTest from "../pages/test/ProductTest";
 
 export const routes = [
   {
-    path: "",
+    path: "/",
     element: <MainLayout />,
     children: [
       {
@@ -18,20 +19,30 @@ export const routes = [
         element: <Home />,
       },
       {
-        path: "/about",
+        path: "about",
         element: <About />,
       },
       {
-        path: "/shop",
+        path: "shop",
         element: <Shop />,
       },
       {
         path: "gallery",
         element: <Gallery />,
       },
-      {
-        path: "/products/:id",
+       {
+        path: "products",
         element: <Detail />,
+        children: [
+          {
+            index: true,
+            element: <Detail />,
+          },
+          {
+            path: ":id",
+            element: <ProductTest />,
+          },
+        ],
       },
     ],
   },
