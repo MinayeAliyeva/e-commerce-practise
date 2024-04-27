@@ -1,11 +1,23 @@
 import express from "express";
-import cors from "cors";
+import cors from "cors"; 
 import { products } from "./db/products.js";
-const app = express();
-app.use(cors());
-const port = 8080;
 
-app.get("/", (req, res) => {
+var accessList = ['http://localhost:3000', 'http://example1.com', 'http://example2.com'];
+
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (accessList.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+};
+
+const app = express(); 
+app.use(cors(corsOptions));
+const port = 8080;
+app.get("/" , (req, res) => {
   res.send(JSON.stringify([{ name: "h" }]));
 });
 //bu endpointde productlar duruyor
@@ -23,3 +35,5 @@ app.get("/products/:id", (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+

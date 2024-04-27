@@ -1,27 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { styled } from "@mui/material/styles";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
-import img from "../../assets/images/flower.jpg";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+const delay = (ms) => new Promise((resolve) => {setTimeout(() => resolve(ms), ms) });
+
+
 const ProductTest = () => {
   const [data, setData] = useState([]);
-  const [detail, setDetail] = useState({});
-  const delay = async (ms) => {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(ms), ms);
-  });
-};
+  const [produvtDetail, setProductDetail] = useState({firstly: true});
 
   useEffect(() => {
     axios
@@ -29,12 +15,13 @@ const ProductTest = () => {
       .then((response) => setData(response?.data));
   }, []);
 
-  const wievDetail = (id) => {
-    axios
-      .get(`http://localhost:8080/products/${id}`)
-      .then((response) => setDetail(response?.data));
+  const wievDetail = (productId) => {
+     delay(3000)
+      .then(()=>{
+        axios.get(`http://localhost:8080/products/${productId}`).then((response) => setProductDetail(response?.data));
+      });
   };
-  console.log("det", detail);
+
   return (
     <>
       {data?.map((product) => (
@@ -43,14 +30,18 @@ const ProductTest = () => {
           <Link to={`/products/${product.id}`}>
             click
           </Link>
-          <button onClick={() => wievDetail(product.id)}>detail</button>
+          <span style={{width: "30px"}}> | </span>
+          <button onClick={() =>{
+            setProductDetail(null)
+            wievDetail(product.id)
+          } }> detail ich seyfe </button>
         </div>
       ))}
-      //2
-      <div>
-        <h1 style={{border:'2px solid yellow'}}>
-          DETAIL
-          {detail.name}
+      
+      <div style={{marginTop: "30px", border:'5px solid black'}}>
+       <h1>detail ich seyfe</h1><br/>
+        <h1>
+          {produvtDetail || produvtDetail?.firstly ? <h4>{produvtDetail.name ?? ""}</h4> : <span>LOADING...</span>}
         </h1>
       </div>
 

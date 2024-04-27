@@ -12,22 +12,26 @@ const Detail = () => {
   const [detail, setDetail] = useState({});
   const { id } = useParams();
   useEffect(() => {
-    delay(4000).then((res) => {
+    delay(2000).then(() => {
       axios
         .get(`http://localhost:8080/products/${id}`)
-        .then((response) => setDetail(response.data));
+        .then((response) => {
+          console.log("Res:", response.data);
+          setDetail(response.data);
+        });
     });
   }, [id]);
 
   return (
     <div>
-      {detail ? (
+      DETAIL 
+      {detail?.id ? (
         <div>
           {detail.name} <br />
           {detail.price}
         </div>
       ) : (
-        <h1>Lo</h1>
+        <h1>Loading ...</h1>
       )}
     </div>
   );
