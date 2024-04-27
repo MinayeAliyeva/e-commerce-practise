@@ -1,19 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
+
+const delay = async (ms) => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(ms), ms);
+  });
+};
+
 const Detail = () => {
   const [detail, setDetail] = useState({});
   const { id } = useParams();
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/products/${id}`)
-      .then((response) => setDetail(response.data));
+    delay(4000).then((res) => {
+      axios
+        .get(`http://localhost:8080/products/${id}`)
+        .then((response) => setDetail(response.data));
+    });
   }, [id]);
-  console.log("detail", detail);
+
   return (
     <div>
-      {detail.name} <br />
-      {detail.price}
+      {detail ? (
+        <div>
+          {detail.name} <br />
+          {detail.price}
+        </div>
+      ) : (
+        <h1>Lo</h1>
+      )}
     </div>
   );
 };

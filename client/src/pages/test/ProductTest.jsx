@@ -17,6 +17,12 @@ import { Link, Outlet } from "react-router-dom";
 const ProductTest = () => {
   const [data, setData] = useState([]);
   const [detail, setDetail] = useState({});
+  const delay = async (ms) => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(ms), ms);
+  });
+};
+
   useEffect(() => {
     axios
       .get("http://localhost:8080/products")
