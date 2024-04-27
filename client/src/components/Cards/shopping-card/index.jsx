@@ -14,7 +14,6 @@ import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlin
 import img from "../../../assets/images/flower.jpg";
 const ShoppingCard = () => {
   const [expanded, setExpanded] = React.useState(false);
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
