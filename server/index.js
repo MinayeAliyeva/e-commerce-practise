@@ -8,16 +8,16 @@ const port = 8080;
 app.get("/", (req, res) => {
   res.send(JSON.stringify([{ name: "h" }]));
 });
-
+//bu endpointde productlar duruyor
 app.get("/products", (req, res) => {
   res.send(JSON.stringify(products));
 });
 
+//bu endpointde ise detail
 app.get("/products/:id", (req, res) => {
-  const findData = JSON.stringify(
-    products?.filter((product) => product.id.toString() == req.params.id)
-  );
-  res.send(findData);
+  const productId = parseInt(req.params.id); // URL'den gelen id'yi int'e çeviriyoruz
+  const product = products.find((product) => product.id === productId); 
+  res.send(product);
 });
 
 app.listen(port, () => {

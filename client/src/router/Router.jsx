@@ -6,6 +6,7 @@ import Home from "../pages/home";
 import About from "../pages/about";
 import Shop from "../pages/shop";
 import Gallery from "../pages/gallery";
+import Detail from "../pages/detail";
 
 export const routes = [
   {
@@ -27,6 +28,10 @@ export const routes = [
       {
         path: "gallery",
         element: <Gallery />,
+      },
+      {
+        path: "/products/:id",
+        element: <Detail />,
       },
     ],
   },
