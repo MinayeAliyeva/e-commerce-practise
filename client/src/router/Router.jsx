@@ -9,8 +9,13 @@ import Gallery from "../pages/gallery";
 import Detail from "../pages/detail";
 import Login from "../pages/login";
 import ProductTest from "../pages/test/ProductTest";
+import LoginMainLayout from "../layout/LoginMainLayout";
 
 export const routes = [
+  {
+    path: "/main",
+    element: <LoginMainLayout />,
+  },
   {
     path: "/",
     element: <MainLayout />,
@@ -31,7 +36,7 @@ export const routes = [
         path: "gallery",
         element: <Gallery />,
       },
-       {
+      {
         path: "products",
         element: <Detail />,
         children: [

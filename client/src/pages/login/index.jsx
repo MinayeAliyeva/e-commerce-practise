@@ -1,11 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
+const arr = ["a", "b", "c"];
+const findEl = arr.find((el) => {
+  return el == "a";
+});
 const Login = () => {
   const [inputUser, setInputUser] = useState({});
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
   const onChange = (event) => {
-    event.preventDefault();
     const { name, value } = event.target;
     setInputUser((prevs) => ({
       ...prevs,
@@ -20,12 +25,22 @@ const Login = () => {
   }, []);
 
   const checkUser = () => {
-    users?.filter((user) => {
-      if (user.name == inputUser.name && user.password == inputUser.password) {
-        console.log("exists");
-      }
-      console.log("not exsits");
-    });
+    axios
+      .get("http://localhost:8080/users/info", {
+        params: { name: "Elmar", age: 27, surname: "Amanov" },
+      })
+      .then((response) => console.log(response));
+
+    // users?.find((user) => {
+    //   if (user.name != inputUser.name || user.password != inputUser.password) {
+    //     navigate("/");
+    //     return null;
+    //   } else {
+    //     navigate("/main");
+    //     localStorage.setItem(JSON.stringify(user?.token));
+    //     return user;
+    //   }
+    // });
   };
   return (
     <div>
@@ -55,7 +70,7 @@ const Login = () => {
           name="password"
           style={{ border: "1px solid" }}
         />
-        <button type="submit" onClick={checkUser}>
+        <button type="button" onClick={checkUser}>
           LOGIN
         </button>
       </form>
