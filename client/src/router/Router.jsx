@@ -7,6 +7,7 @@ import About from "../pages/about";
 import Shop from "../pages/shop";
 import Gallery from "../pages/gallery";
 import Detail from "../pages/detail";
+import Login from "../pages/login";
 
 export const routes = [
   {
@@ -32,6 +33,10 @@ export const routes = [
       {
         path: "/products/:id",
         element: <Detail />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
       },
     ],
   },

@@ -19,6 +19,10 @@ export const links = [
     name: "Gallery",
     to: "/gallery",
   },
+  {
+    name:'Login',
+    to:'/login'
+  }
 ];
 
 const MenuBar = () => {
