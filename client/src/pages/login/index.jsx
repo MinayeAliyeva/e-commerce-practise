@@ -1,6 +1,32 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const Login = () => {
+  const [inputUser, setInputUser] = useState({});
+  const [users, setUsers] = useState([]);
+  const onChange = (event) => {
+    event.preventDefault();
+    const { name, value } = event.target;
+    setInputUser((prevs) => ({
+      ...prevs,
+      [name]: value,
+    }));
+  };
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/users")
+      .then((response) => setUsers(response?.data));
+  }, []);
+
+  const checkUser = () => {
+    users?.filter((user) => {
+      if (user.name == inputUser.name && user.password == inputUser.password) {
+        console.log("exists");
+      }
+      console.log("not exsits");
+    });
+  };
   return (
     <div>
       <form
@@ -15,10 +41,23 @@ const Login = () => {
         {" "}
         <h1>Check Login</h1>
         <label htmlFor="">Name</label>
-        <input type="text" style={{ border: "1px solid" }} />
+        <input
+          onChange={onChange}
+          name="name"
+          type="text"
+          style={{ border: "1px solid" }}
+        />
         <br />
         <label>Password</label>
-        <input type="password" style={{ border: "1px solid" }} />
+        <input
+          onChange={onChange}
+          type="password"
+          name="password"
+          style={{ border: "1px solid" }}
+        />
+        <button type="submit" onClick={checkUser}>
+          LOGIN
+        </button>
       </form>
     </div>
   );

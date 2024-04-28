@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { products } from "./db/products.js";
-
+import { users } from "./db/users.js";
 var accessList = [
   "http://localhost:3000",
   "http://example1.com",
@@ -37,10 +37,14 @@ app.get("/products/:id", (req, res) => {
   res.send(product);
 });
 
+//for users
+app.get("/users", (req, res) => {
+  res.send(JSON.stringify(users));
+});
+
+
+
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
-
-//for users
-
-
