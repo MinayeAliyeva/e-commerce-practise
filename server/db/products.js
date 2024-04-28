@@ -18,3 +18,5 @@ export const products = [
     detail: "detail 3",
   },
 ];
+
+
