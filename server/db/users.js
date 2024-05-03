@@ -5,8 +5,8 @@ export const users = [
     token: "abc",
   },
   {
-    name: "Elmar",
-    password: "Elmar1234",
+    name: "Emin",
+    password: "Emin1234",
     token: "cde",
   },
 ];

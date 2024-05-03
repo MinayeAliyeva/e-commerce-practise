@@ -10,6 +10,7 @@ const Login = () => {
   const [inputUser, setInputUser] = useState({});
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
+
   const onChange = (event) => {
     const { name, value } = event.target;
     setInputUser((prevs) => ({
@@ -26,10 +27,10 @@ const Login = () => {
 
   const checkUser = () => {
     axios
-      .get("http://localhost:8080/users/info", {
-        params: { name: "Elmar", age: 27, surname: "Amanov" },
+      .get("http://localhost:8080/users", {
+        params: { name: "Minaya", age: 27, surname: "Aliyeva" },
       })
-      .then((response) => console.log(response));
+      .then((response) => console.log('response',response));
 
     // users?.find((user) => {
     //   if (user.name != inputUser.name || user.password != inputUser.password) {
