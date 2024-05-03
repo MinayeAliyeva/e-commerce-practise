@@ -1,4 +1,5 @@
 import express from "express";
+import https from "https";
 import users from "./data-base/users.json" assert { type: "json" };
 import posts from "./data-base/posts.json" assert { type: "json" };
 import cors from "cors";
@@ -36,18 +37,59 @@ app.get("/users/:userId", (request, response) => {
 // make get posts | get /posts/1 | get /posts/1/comments
 // console.log("bd", posts);
 //TASK
-app.get("/posts", (req, res) => {
-  res.status(200).send(posts?.data);
-});
-app.get("/posts/:postId", (req, res) => {
-  const { postId } = req?.params;
-  const post = posts?.data.find((post) => post?.id.toString() === postId);
-  console.log("pott", post);
-  if (post) {
-    res.status(200).send(post);
+// /posts method:GET
+
+app.get("/posts", (request, response) => {
+  // console.log("posts.data", posts.data);
+  // console.log("posts.data.lenght", posts.data.lenght);
+
+  if (!posts?.data) {
+    response.status(500).send("SERVER ERROR");
   } else {
-    res.status(404).send("User not found");
+    response.status(200).send(posts);
   }
+});
+//  /posts/:postId METHOD:GET
+app.get("/posts/:postId", (request, response) => {
+  const { postId } = request?.params;
+  const findPost = posts?.data.find((post) => post?.id.toString() === postId);
+  if (!findPost) {
+    response
+      .status(404)
+      .send(`${request?.params?.postId} id -li user bulunamadi`);
+  } else {
+    response.status(200).send(findPost);
+  }
+});
+
+//  /posts/:postId/comments    METHOD:GET
+
+// /posts/1/comments
+
+//https://jsonplaceholder.typicode.com/posts/postId/comments
+app.get("/posts/:postId/comments", (request, response) => {
+  const { postId } = request?.params;
+  console.log("TEST", postId);
+
+  //backendden ---> basqa bir urle sorgu atma
+  https.get(
+    `https://jsonplaceholder.typicode.com/posts/${postId}/comments`,
+    (res) => {
+      let data = "";
+      //buffer tip arasdir
+      res
+        .on("data", (chunk) => {
+          data += chunk;
+        })
+        .on("end", () => {
+          let comments = JSON.parse(data);
+          response.status(200).send(comments);
+        })
+        .on("error", (err) => {
+          response.status(500).send(err.message);
+        });
+    }
+  );
 });
 
 app.listen(port, () => {
