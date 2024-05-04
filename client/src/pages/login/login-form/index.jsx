@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import FormControl, { useFormControl } from "@mui/material/FormControl";
+
 import "./style.scss";
 const LoginForm = () => {
+  const { focused } = useFormControl() || {};
+  console.log("focused", focused);
   // const [error, setError] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
 
   const onChangeInput = (event) => {
     setInputValue(event.target.value);
-    if (error && event?.target?.value < 5) {
+    if (isClicked && inputValue?.length <= 2) {
       setError(true);
     } else {
       setError(false);
@@ -18,7 +24,8 @@ const LoginForm = () => {
   console.log("event.target.value", inputValue?.length);
 
   const onSubmit = () => {
-    if (inputValue && inputValue?.length < 5) {
+    setIsClicked(true);
+    if (inputValue && inputValue?.length <= 2) {
       setError(true);
     }
   };
@@ -26,13 +33,13 @@ const LoginForm = () => {
   return (
     <form className="form">
       <Box
-        component="form"
         sx={{
-          "& > :not(style)": { m: 1, width: "350px" },
+          width: "350px",
+          display: "flex",
+          alignItems: "flex-end",
         }}
-        noValidate
-        autoComplete="off"
       >
+        <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
         <TextField
           fullWidth
           id="standard-basic"
