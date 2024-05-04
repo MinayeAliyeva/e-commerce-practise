@@ -1,48 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 import "./style.scss";
-import { useState } from "react";
 const LoginForm = () => {
-  const [user, setUser] = useState({ name: "", password: "", signin: false });
+  // const [error, setError] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [error, setError] = useState(false);
 
   const onChangeInput = (event) => {
-    const { name, value } = event.target;
-    setUser((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    setInputValue(event.target.value);
+    if (error && event?.target?.value < 5) {
+      setError(true);
+    } else {
+      setError(false);
+    }
   };
+  console.log("event.target.value", inputValue?.length);
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    setUser({});
+  const onSubmit = () => {
+    if (inputValue && inputValue?.length < 5) {
+      setError(true);
+    }
   };
-  console.log(user);
+  // console.log(user);
   return (
     <form className="form">
-      <div className="input-container">
-        <label>Name</label>
-        <input
-          name="name"
+      <Box
+        component="form"
+        sx={{
+          "& > :not(style)": { m: 1, width: "350px" },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField
+          fullWidth
+          id="standard-basic"
+          label="Name"
+          variant="standard"
+          error={error}
+          helperText={error && "Error"}
           onChange={onChangeInput}
-          className="input"
-          type="text"
+          value={inputValue}
         />
-      </div>
-      <div className="input-container">
-        <label>Password</label>
-        <input
-          name="password"
-          onChange={onChangeInput}
-          className="input"
-          type="text"
-        />
-      </div>
-      <div style={{ width: "28%" }}>
-        <div style={{ display: "flex" }}>
-          <input name="signin" onChange={onChangeInput} type="checkbox" />
-          <label htmlFor="">Keep me Sign in</label>
-        </div>
-      </div>
+      </Box>
+
       <button type="button" onClick={onSubmit} className="signin-btn">
         Sign in
       </button>
