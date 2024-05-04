@@ -1,82 +1,71 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import * as React from "react";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import "./style.scss";
+import LoginForm from "./login-form";
+import SignUpForm from "./signup-form";
 
-const arr = ["a", "b", "c"];
-const findEl = arr.find((el) => {
-  return el == "a";
-});
-const Login = () => {
-  const [inputUser, setInputUser] = useState({});
-  const [users, setUsers] = useState([]);
-  const navigate = useNavigate();
+function CustomTabPanel(props) {
+  const { children, value, index, ...other } = props;
 
-  const onChange = (event) => {
-    const { name, value } = event.target;
-    setInputUser((prevs) => ({
-      ...prevs,
-      [name]: value,
-    }));
-  };
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/users")
-      .then((response) => setUsers(response?.data));
-  }, []);
-
-  const checkUser = () => {
-    axios
-      .get("http://localhost:8080/users", {
-        params: { name: "Minaya", age: 27, surname: "Aliyeva" },
-      })
-      .then((response) => console.log('response',response));
-
-    // users?.find((user) => {
-    //   if (user.name != inputUser.name || user.password != inputUser.password) {
-    //     navigate("/");
-    //     return null;
-    //   } else {
-    //     navigate("/main");
-    //     localStorage.setItem(JSON.stringify(user?.token));
-    //     return user;
-    //   }
-    // });
-  };
   return (
-    <div>
-      <form
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          border: "3px solid",
-          width: "300px",
-          margin: "50px",
-        }}
-      >
-        {" "}
-        <h1>Check Login</h1>
-        <label htmlFor="">Name</label>
-        <input
-          onChange={onChange}
-          name="name"
-          type="text"
-          style={{ border: "1px solid" }}
-        />
-        <br />
-        <label>Password</label>
-        <input
-          onChange={onChange}
-          type="password"
-          name="password"
-          style={{ border: "1px solid" }}
-        />
-        <button type="button" onClick={checkUser}>
-          LOGIN
-        </button>
-      </form>
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 2 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
     </div>
   );
+}
+
+CustomTabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
 };
 
-export default Login;
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
+export default function BasicTabs() {
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <Box sx={{ width: "100%" }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+        >
+          <Tab label="Login" {...a11yProps(0)} />
+          <Tab label="Sign Up" {...a11yProps(1)} />
+        </Tabs>
+      </Box>
+      <CustomTabPanel value={value} index={0}>
+        <LoginForm />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        <SignUpForm />
+      </CustomTabPanel>
+    </Box>
+  );
+}
