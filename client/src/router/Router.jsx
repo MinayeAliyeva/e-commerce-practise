@@ -13,7 +13,7 @@ import LoginMainLayout from "../layout/LoginMainLayout";
 
 export const routes = [
   {
-    path: "/main",
+    path: "/auth",
     element: <LoginMainLayout />,
   },
   {
@@ -22,6 +22,10 @@ export const routes = [
     children: [
       {
         index: true,
+        element: <Home />,
+      },
+      {
+        path: "home",
         element: <Home />,
       },
       {
