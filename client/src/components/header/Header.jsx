@@ -107,7 +107,7 @@ export default function PrimarySearchAppBar() {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <MenuIcon sx={{ display: { xs: "flex", md: "none" } }} />
+            <MenuIcon sx={{ display: { xs: "flex", md: "none" } }} /> 
           </IconButton>
         </Toolbar>
       </AppBar>
