@@ -1,47 +1,98 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+
 import "./style.scss";
+
 const LoginForm = () => {
-  // const [error, setError] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-  const [error, setError] = useState(false);
+  const [inputValue, setInputValue] = useState({ name: "", email: "" });
+  const [errors, setErrors] = useState({ name: false, email: false });
+  const [isClicked, setIsClicked] = useState(false);
+
+  const validateEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
 
   const onChangeInput = (event) => {
-    setInputValue(event.target.value);
-    if (error && event?.target?.value < 5) {
-      setError(true);
-    } else {
-      setError(false);
+    const { name, value } = event.target;
+
+    setInputValue((prevInputValue) => ({
+      ...prevInputValue,
+      [name]: value,
+    }));
+
+    if (isClicked) {
+      if (name === "name" && value?.length <= 5) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          name: true,
+        }));
+      } else if (name === "email" && !validateEmail(value)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: true,
+        }));
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: false,
+        }));
+      }
     }
   };
-  console.log("event.target.value", inputValue?.length);
 
   const onSubmit = () => {
-    if (inputValue && inputValue?.length < 5) {
-      setError(true);
+    setIsClicked(true);
+    if (inputValue?.name?.length <= 5 || !validateEmail(inputValue.email)) {
+      setErrors({
+        name: inputValue.name.length <= 5,
+        email: !validateEmail(inputValue.email),
+      });
+      return;
     }
   };
-  // console.log(user);
+
   return (
     <form className="form">
       <Box
-        component="form"
         sx={{
-          "& > :not(style)": { m: 1, width: "350px" },
+          width: "350px",
+          display: "flex",
+          alignItems: "flex-end",
         }}
-        noValidate
-        autoComplete="off"
       >
+        <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
         <TextField
           fullWidth
           id="standard-basic"
           label="Name"
           variant="standard"
-          error={error}
-          helperText={error && "Error"}
+          error={errors.name}
+          helperText={errors.name && " 5 harf olmali"}
           onChange={onChangeInput}
-          value={inputValue}
+          value={inputValue.name}
+          name="name"
+        />
+      </Box>
+      <Box
+        sx={{
+          width: "350px",
+          display: "flex",
+          alignItems: "flex-end",
+        }}
+      >
+        <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+        <TextField
+          fullWidth
+          id="standard-basic"
+          label="Email"
+          variant="standard"
+          error={errors.email}
+          helperText={errors.email && "Yanlis email"}
+          onChange={onChangeInput}
+          value={inputValue.email}
+          name="email"
         />
       </Box>
 
