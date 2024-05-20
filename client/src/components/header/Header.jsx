@@ -96,6 +96,7 @@ export default function PrimarySearchAppBar() {
               color="inherit"
             >
               <MoreIcon />
+             
             </IconButton>
           </Box>
 

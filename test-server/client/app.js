@@ -8,6 +8,16 @@ async function get(path, params) {
 
   return data;
 }
+
+
+const users = get("http://localhost:8000", "users")
+  .then((res) => {
+    console.log("CLIENT GET RESPONSE Users", res);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 // id requset
 async function getId(path, params, id) {
   // "http://localhost:8000/users"   - GET
@@ -21,13 +31,7 @@ async function getId(path, params, id) {
   return data;
 }
 
-const users = get("http://localhost:8000", "users")
-  .then((res) => {
-    console.log("CLIENT GET RESPONSE Users", res);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+
 
 const user = getId("http://localhost:8000", "users", 1)
   .then((res) => {

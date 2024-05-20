@@ -17,7 +17,7 @@ app.use(
   })
 );
 
-// "http://localhost:8000/users"   - GET
+// "http://localhost:8000/users" - GET
 
 app.get("/users", (requset, response) => {
   response.status(200).send(users?.data);
@@ -27,6 +27,7 @@ app.get("/users", (requset, response) => {
 app.get("/users/:userId", (request, response) => {
   const { userId } = request.params;
   const findUser = users?.data?.find((user) => user.id.toString() === userId);
+  console.log("findUser", findUser);
   if (findUser) {
     response.status(200).send(findUser);
   } else {
@@ -69,7 +70,6 @@ app.get("/posts/:postId", (request, response) => {
 //https://jsonplaceholder.typicode.com/posts/postId/comments
 app.get("/posts/:postId/comments", (request, response) => {
   const { postId } = request?.params;
-  console.log("TEST", postId);
 
   //backendden ---> basqa bir urle sorgu atma
   https.get(
