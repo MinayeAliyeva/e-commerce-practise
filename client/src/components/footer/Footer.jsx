@@ -39,7 +39,7 @@ const Footer = () => {
                   Email{" "}
                 </label>
 
-                <div className="border border-gray-100 p-2 focus-within:ring sm:flex sm:items-center sm:gap-4">
+                {/* <div className="border border-gray-100 p-2 focus-within:ring sm:flex sm:items-center sm:gap-4">
                   <input
                     type="email"
                     id="UserEmail"
@@ -50,7 +50,7 @@ const Footer = () => {
                   <button className="mt-1 w-full bg-teal-500 px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-teal-600 sm:mt-0 sm:w-auto sm:shrink-0">
                     Sign Up
                   </button>
-                </div>
+                </div> */}
               </form>
             </div>
 
@@ -374,7 +374,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-gray-100 pt-8">
+        {/* <div className="mt-8 border-t border-gray-100 pt-8">
           <div className="sm:flex sm:justify-between">
             <p className="text-xs text-gray-500">
               &copy; 2022. Company Name. All rights reserved.
@@ -412,7 +412,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-        </div>
+        </div> */}
       </div>
     </footer>
   );
