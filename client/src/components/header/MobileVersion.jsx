@@ -5,7 +5,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useNavigate } from "react-router-dom";
 
-
+const loginUser = JSON.parse(localStorage.getItem("loginUser"));
 const MobileVersion = React.memo(
   ({
     isMenuOpen,
@@ -44,6 +44,7 @@ const MobileVersion = React.memo(
           Login
         </MenuItem>
         <MenuItem onClick={handleMenuClose}>Log Out</MenuItem>
+        {loginUser && <MenuItem onClick={handleMenuClose}>Profile</MenuItem>}
       </Menu>
     );
 

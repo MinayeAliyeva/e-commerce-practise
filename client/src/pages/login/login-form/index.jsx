@@ -55,17 +55,20 @@ const LoginForm = () => {
         name: user?.name,
         password: user?.password,
       };
-      console.log("params", params);
+      // console.log("params", params);
       axios
         .get("http://localhost:8080/users", { params })
         .then((res) => {
-          console.log("res", res?.data?.token);
+          localStorage.setItem("loginUser", JSON.stringify(res?.data));
         })
         .catch((err) => {
           console.log("error", err?.response?.data?.massege);
         });
     }
   };
+
+  //Localstorageden useri alma
+
 
   //TOKENI GOTUR LOCALSTOREGE YA CONTEXTDE SAXLA TOKENE GORE TOKEN VARDSA ADD TO CARD GORESSEN ,my profile sehifesi gore bilsin
 
