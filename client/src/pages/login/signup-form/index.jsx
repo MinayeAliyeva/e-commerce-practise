@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+import { Box, TextField, Button, Stack } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import "./style.scss";
-import { Button, Stack } from "@mui/material";
+
 const SignUpForm = () => {
   const [user, setUser] = useState({
     name: "",
@@ -18,105 +17,98 @@ const SignUpForm = () => {
     password: false,
     repeatpassword: false,
   });
-  const [isClicked, setIsClicked] = useState(false);
 
-  const onChangeInput = (e) => {
-    const { name, value } = e.target;
-    setUser((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-    // console.log("user",user);
+  const onChangeInput = ({ target: { name, value } }) => {
+    // const { name, value } = e.target;
+    setUser((prevValues) => ({ ...prevValues, [name]: value }));
   };
 
   const onSubmit = () => {
-    setIsClicked(!isClicked);
-    if(user?.name?.length<3){
-     setErrors
+    const nameError = user.name.length < 3;
+    const emailError = !isValidEmail(user.email);
+    const passwordError = !isValidPassword(user.password);
+    const repeatPasswordError = user.password !== user.repeatpassword;
+
+    setErrors({
+      name: nameError,
+      email: emailError,
+      password: passwordError,
+      repeatpassword: repeatPasswordError,
+    });
+
+    if (!nameError && !emailError && !passwordError && !repeatPasswordError) {
+      //axios islemlerini edecem
     }
-    console.log("sub User", user);
   };
+
+  const isValidEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  const isValidPassword = (password) => {
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password);
+  };
+
   return (
     <form action="" className="form">
-      <Box
-        sx={{
-          width: "350px",
-          display: "flex",
-          alignItems: "flex-end",
-        }}
-      >
+      <Box sx={{ width: "350px", display: "flex", alignItems: "flex-end" }}>
         <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
         <TextField
           fullWidth
           id="standard-basic"
           label="Name"
           variant="standard"
-          // error={errors.name}
-          // helperText={errors.name && " 3 harf olmali"}
+          error={errors.name}
+          helperText={errors.name && "Name must be at least 3 characters"}
           onChange={onChangeInput}
-          value={user?.name}
-
+          value={user.name}
           name="name"
         />
       </Box>
-      <Box
-        sx={{
-          width: "350px",
-          display: "flex",
-          alignItems: "flex-end",
-        }}
-      >
+      <Box sx={{ width: "350px", display: "flex", alignItems: "flex-end" }}>
         <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
         <TextField
           fullWidth
           id="standard-basic"
           label="Email"
           variant="standard"
-          // error={errors.name}
-          // helperText={errors.name && " 3 harf olmali"}
+          error={errors.email}
+          helperText={errors.email && "Enter a valid email address"}
           onChange={onChangeInput}
-          // value={user.name}
+          value={user.email}
           name="email"
         />
       </Box>
-
-      <Box
-        sx={{
-          width: "350px",
-          display: "flex",
-          alignItems: "flex-end",
-        }}
-      >
+      <Box sx={{ width: "350px", display: "flex", alignItems: "flex-end" }}>
         <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
         <TextField
           fullWidth
           id="standard-basic"
           label="Password"
           variant="standard"
-          // error={errors.name}
-          // helperText={errors.name && " 3 harf olmali"}
+          type="password"
+          error={errors.password}
+          helperText={
+            errors.password &&
+            "Password must be at least 8 characters, including one uppercase letter, one lowercase letter, and one digit"
+          }
           onChange={onChangeInput}
-          // value={user.name}
+          value={user.password}
           name="password"
         />
       </Box>
-      <Box
-        sx={{
-          width: "350px",
-          display: "flex",
-          alignItems: "flex-end",
-        }}
-      >
+      <Box sx={{ width: "350px", display: "flex", alignItems: "flex-end" }}>
         <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
         <TextField
           fullWidth
           id="standard-basic"
           label="Repeat Password"
           variant="standard"
-          // error={errors.name}
-          // helperText={errors.name && " 3 harf olmali"}
+          type="password"
+          error={errors.repeatpassword}
+          helperText={errors.repeatpassword && "Passwords do not match"}
           onChange={onChangeInput}
-          // value={user.name}
+          value={user.repeatpassword}
           name="repeatpassword"
         />
       </Box>

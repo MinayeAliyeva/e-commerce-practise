@@ -15,7 +15,7 @@ const LoginForm = () => {
 
   const onChangeInput = ({ target: { name, value } }) => {
     setUser((prevs) => ({ ...prevs, [name]: value }));
-    console.log("name budur", name);
+    // console.log("name budur", name);
     // clikden sonra yoxlayir sonra click olunub
     if (isClicked) {
       setErrors((prev) => ({
@@ -82,16 +82,16 @@ const LoginForm = () => {
         />
       </Box>
 
-      {/* Giriş Yap butonu */}
+
       <Stack direction="row" spacing={2}>
         <Button onClick={onSubmit} variant="outlined">
           Giriş Yap
         </Button>
       </Stack>
 
-      {/* Şifremi Unuttum linki */}
+
       <div className="line"></div>
-      <span>Şifremi Unuttum?</span>
+      <span>Şifrenimi unutdun?</span>
     </form>
   );
 };
