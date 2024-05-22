@@ -1,26 +1,27 @@
 import express from "express";
 import { users } from "../../db/users.js";
+
 const router = express.Router();
 
-router.get("", function (req, res) {
-  if (req?.query?.name) {
-    const findUser = users?.find((user) => user?.name == req?.query?.name);
-    res.send(findUser);
-    return;
+// localhost:8080/users?name=Elmar&password=1234
+router.get("/", function (req, res) {
+  //req frontdan gelen data
+  const findUser = users?.find(
+    (user) =>
+      user?.name === req?.query?.name && user?.password === req?.query?.password
+  );
+  if (findUser) {
+    //serverden fronta data gonderirik
+    res.status(200).send(findUser);
+  } else {
+    res
+      .status(404)
+      .send({ message: "Kullanıcı bulunamadı: " + req?.query?.name });
   }
-  res.send(users);
 });
-// // params understanding and query
-// router.get("/", function (req, res) {
-//   console.log("2req.query",req.query);
-//   console.log("2req.params",req.params);
-//   if (req?.query?.name) {
-//     const findUser = users?.find((user) => user?.name == req?.query?.name);
-//     res.send(findUser);
-//     return;
-//   }
-//   res.send(users);
-// });
+
 export default router;
 
 //paramlar : den sonra , queryler ise
+
+//TASK PASSWORD CONTROL ADD ET,

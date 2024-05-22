@@ -1,106 +1,97 @@
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+import { Box, TextField, Button, Stack } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-
+import axios from "axios";
 import "./style.scss";
 
 const LoginForm = () => {
-  const [inputValue, setInputValue] = useState({ name: "", email: "" });
-  const [errors, setErrors] = useState({ name: false, email: false });
+  const [user, setUser] = useState({ name: "", password: "" });
+  const [errors, setErrors] = useState({ name: false, password: false });
   const [isClicked, setIsClicked] = useState(false);
 
-  const validateEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
+  //password regexim
+  const passwordRegex =
+    /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*_)(?!.* ).{8,16}$/;
 
-  const onChangeInput = (event) => {
-    const { name, value } = event.target;
-
-    setInputValue((prevInputValue) => ({
-      ...prevInputValue,
-      [name]: value,
-    }));
-
+  const onChangeInput = ({ target: { name, value } }) => {
+    setUser((prevs) => ({ ...prevs, [name]: value }));
+    console.log("name budur", name);
+    // clikden sonra yoxlayir sonra click olunub
     if (isClicked) {
-      if (name === "name" && value?.length <= 5) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          name: true,
-        }));
-      } else if (name === "email" && !validateEmail(value)) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          email: true,
-        }));
-      } else {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          [name]: false,
-        }));
-      }
+      setErrors((prev) => ({
+        ...prev,
+        [name]:
+          name === "password" ? !passwordRegex.test(value) : value.length < 3,
+      }));
     }
   };
 
   const onSubmit = () => {
     setIsClicked(true);
-    if (inputValue?.name?.length <= 5 || !validateEmail(inputValue.email)) {
-      setErrors({
-        name: inputValue.name.length <= 5,
-        email: !validateEmail(inputValue.email),
-      });
-      return;
+    const { name, password } = user;
+    //name password yoxlayir
+    const nameError = name.length < 3;
+    const passwordError = !passwordRegex.test(password);
+    setErrors({ name: nameError, password: passwordError });
+    if (!nameError && !passwordError) {
+      axios
+        .get("http://localhost:8080/users", { params: user })
+        .then((res) =>
+          localStorage.setItem("loginUser", JSON.stringify(res.data))
+        )
+        .catch((err) => console.error("error", err?.response?.data?.message));
     }
   };
 
   return (
     <form className="form">
       <Box
-        sx={{
-          width: "350px",
-          display: "flex",
-          alignItems: "flex-end",
-        }}
+        sx={{ width: "350px", display: "flex", alignItems: "flex-end", mb: 2 }}
       >
         <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
         <TextField
           fullWidth
-          id="standard-basic"
-          label="Name"
+          id="name-basic"
+          label="İsim"
           variant="standard"
           error={errors.name}
-          helperText={errors.name && " 5 harf olmali"}
+          helperText={errors.name && "İsim en az 3 karakter olmalı"}
           onChange={onChangeInput}
-          value={inputValue.name}
+          value={user.name}
           name="name"
         />
       </Box>
       <Box
-        sx={{
-          width: "350px",
-          display: "flex",
-          alignItems: "flex-end",
-        }}
+        sx={{ width: "350px", display: "flex", alignItems: "flex-end", mb: 2 }}
       >
         <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
         <TextField
           fullWidth
-          id="standard-basic"
-          label="Email"
+          id="password-basic"
+          label="Şifre"
           variant="standard"
-          error={errors.email}
-          helperText={errors.email && "Yanlis email"}
+          type="password"
+          error={errors.password}
+          helperText={
+            errors.password &&
+            "Şifre en az bir küçük harf, bir büyük harf, bir rakam ve bir alt çizgi (_) içermeli ve 8-16 karakter uzunluğunda olmalıdır"
+          }
           onChange={onChangeInput}
-          value={inputValue.email}
-          name="email"
+          value={user.password}
+          name="password"
         />
       </Box>
 
-      <button type="button" onClick={onSubmit} className="signin-btn">
-        Sign in
-      </button>
+      {/* Giriş Yap butonu */}
+      <Stack direction="row" spacing={2}>
+        <Button onClick={onSubmit} variant="outlined">
+          Giriş Yap
+        </Button>
+      </Stack>
+
+      {/* Şifremi Unuttum linki */}
       <div className="line"></div>
-      <span>Forgot Password?</span>
+      <span>Şifremi Unuttum?</span>
     </form>
   );
 };
