@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Box, TextField, Button, Stack } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import axios from "axios";
+
+
+
+
 import "./style.scss";
 
 const LoginForm = () => {
@@ -30,15 +34,17 @@ const LoginForm = () => {
     setIsClicked(true);
     const { name, password } = user;
     //name password yoxlayir
+
     const nameError = name.length < 3;
     const passwordError = !passwordRegex.test(password);
     setErrors({ name: nameError, password: passwordError });
     if (!nameError && !passwordError) {
       axios
         .get("http://localhost:8080/users", { params: user })
-        .then((res) =>
-          localStorage.setItem("loginUser", JSON.stringify(res.data))
-        )
+        .then((res) => {
+          localStorage.setItem("loginUser", JSON.stringify(res.data));
+          console.log("client teref", res.data);
+        })
         .catch((err) => console.error("error", err?.response?.data?.message));
     }
   };
@@ -82,13 +88,11 @@ const LoginForm = () => {
         />
       </Box>
 
-
       <Stack direction="row" spacing={2}>
         <Button onClick={onSubmit} variant="outlined">
           Sign In
         </Button>
       </Stack>
-
 
       <div className="line"></div>
       <span>Şifrenimi unutdun?</span>
