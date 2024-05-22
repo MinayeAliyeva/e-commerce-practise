@@ -9,7 +9,7 @@ import LoginForm from "./login-form";
 import SignUpForm from "./signup-form";
 
 function CustomTabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, ...other } = props ?? {};
 
   return (
     <div

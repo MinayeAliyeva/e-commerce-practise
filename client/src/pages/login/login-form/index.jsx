@@ -4,7 +4,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import axios from "axios";
 import "./style.scss";
 
-const LoginForm = () => {
+const LoginForm2 = () => {
   const [user, setUser] = useState({ name: "", password: "" });
   const [errors, setErrors] = useState({ name: false, password: false });
   const [isClicked, setIsClicked] = useState(false);
@@ -96,4 +96,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default LoginForm2;

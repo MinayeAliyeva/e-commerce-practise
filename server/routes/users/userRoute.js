@@ -1,7 +1,18 @@
 import express from "express";
+//import fs from "fs";
 import { users } from "../../db/users.js";
 
 const router = express.Router();
+// const jsonUsers = JSON.stringify(users);
+
+// fs.writeFile("./data.json", jsonUsers, "utf8", (error) => {
+//   if (error) {
+//     console.log(error);
+//   } else {
+//     console.log("writeFile complete");
+//     return;
+//   }
+// });
 
 
 // localhost:8080/users?name=Elmar&password=1234
