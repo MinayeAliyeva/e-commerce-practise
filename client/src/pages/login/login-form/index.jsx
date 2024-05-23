@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Box, TextField, Button, Stack } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import { MainContext, useContext } from "../../../store/context";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./style.scss";
 
@@ -8,7 +10,11 @@ const LoginForm2 = () => {
   const [user, setUser] = useState({ name: "", password: "" });
   const [errors, setErrors] = useState({ name: false, password: false });
   const [isClicked, setIsClicked] = useState(false);
+  const navigate = useNavigate();
 
+  //ContextSide
+  const users = useContext(MainContext);
+  console.log("context", users);
   //password regexim
   const passwordRegex =
     /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*_)(?!.* ).{8,16}$/;
@@ -36,9 +42,10 @@ const LoginForm2 = () => {
     if (!nameError && !passwordError) {
       axios
         .get("http://localhost:8080/users", { params: user })
-        .then((res) =>
-          localStorage.setItem("loginUser", JSON.stringify(res.data))
-        )
+        .then((res) => {
+          localStorage.setItem("loginUser", JSON.stringify(res.data));
+          navigate("/");
+        })
         .catch((err) => console.error("error", err?.response?.data?.message));
     }
   };
@@ -82,13 +89,11 @@ const LoginForm2 = () => {
         />
       </Box>
 
-
       <Stack direction="row" spacing={2}>
         <Button onClick={onSubmit} variant="outlined">
           Giriş Yap
         </Button>
       </Stack>
-
 
       <div className="line"></div>
       <span>Şifrenimi unutdun?</span>
