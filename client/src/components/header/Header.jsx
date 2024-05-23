@@ -19,10 +19,14 @@ import { MainContext, useContext } from "../../store/context";
 
 export default function PrimarySearchAppBar() {
   const users = useContext(MainContext);
-  console.log("user",users);
   const [loginUser, setLoginUser] = useState(
     JSON.parse(localStorage.getItem("loginUser"))
   );
+  const findUser = users?.find((user) => {
+    console.log(" user", user);
+    console.log("loginuser", loginUser);
+    return user?.name === loginUser?.name;
+  });
 
   useEffect(() => {
     setLoginUser(JSON.parse(localStorage.getItem("loginUser")));
@@ -67,9 +71,14 @@ export default function PrimarySearchAppBar() {
           </Box>
 
           {loginUser ? (
-            "var"
+            <div>
+              <img
+                style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+                src={findUser?.image}
+                alt=""
+              />
+            </div>
           ) : (
-            
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <IconButton
                 size="large"
