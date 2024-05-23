@@ -14,13 +14,25 @@ import MobileVersion from "./MobileVersion";
 import MenuBar from "./MenuBar";
 import SideBar from "./SideBar";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { MainContext, useContext } from "../../store/context";
 
 export default function PrimarySearchAppBar() {
+  const users = useContext(MainContext);
+  console.log("user",users);
+  const [loginUser, setLoginUser] = useState(
+    JSON.parse(localStorage.getItem("loginUser"))
+  );
+
+  useEffect(() => {
+    setLoginUser(JSON.parse(localStorage.getItem("loginUser")));
+  }, []);
+
   const [open, setOpen] = useState(false);
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
+
   const state = useMobile();
   const {
     menuId,
@@ -54,38 +66,45 @@ export default function PrimarySearchAppBar() {
             <MenuBar />
           </Box>
 
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <ShoppingBasketOutlinedIcon />
-              </Badge>
-            </IconButton>
+          {loginUser ? (
+            "var"
+          ) : (
+            
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <IconButton
+                size="large"
+                aria-label="show 4 new mails"
+                color="inherit"
+              >
+                <Badge badgeContent={4} color="error">
+                  <ShoppingBasketOutlinedIcon />
+                </Badge>
+              </IconButton>
 
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </Box>
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+              >
+                <Badge badgeContent={17} color="error">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            </Box>
+          )}
+
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -96,7 +115,6 @@ export default function PrimarySearchAppBar() {
               color="inherit"
             >
               <MoreIcon />
-             
             </IconButton>
           </Box>
 
@@ -108,7 +126,7 @@ export default function PrimarySearchAppBar() {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <MenuIcon sx={{ display: { xs: "flex", md: "none" } }} /> 
+            <MenuIcon sx={{ display: { xs: "flex", md: "none" } }} />
           </IconButton>
         </Toolbar>
       </AppBar>
